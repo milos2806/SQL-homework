@@ -1,0 +1,111 @@
+1. Prikaži koja tri proizvoda imaju najveći popust.
+	SELECT * FROM products 
+	WHERE discount ORDER BY discount DESC LIMIT 3
+
+
+2. Prikaži koji proizvod je na drugom mestu po popustu.
+
+	SELECT * FROM products 	
+	WHERE discount 
+	ORDER BY discount DESC LIMIT 1 OFFSET 1
+
+3. Prikaži sumu cena svih proizvoda.
+	SELECT SUM(price) 
+	FROM products
+
+4. Prikaži prosečnu cenu svih proizvoda
+
+	SELECT AVG(price) 
+	FROM products
+
+5. Prikaži prosečnu cenu svih proizvoda iz kategorije "Pice".
+
+	SELECT AVG(price) 
+	FROM products 
+	WHERE category LIke 'pice'
+
+
+6. Prikaži maksimalnu vrednost popusta (Koji je najveći popust?).
+
+	SELECT MAX(discount) 
+	FROM products
+
+7. Prikaži koliko proizvoda ima popust (ne koji su nego koliko njih - 
+sumarno).
+	SELECT COUNT(*) AS 'Broj proizvoda sa popustom' 
+	FROM products 
+	WHERE discount >0
+
+
+
+8. Selektuj sve kategorije bez ponavljanja (GROUP BY).
+	SELECT DISTINCT category 
+	FROM products  
+	
+ili 
+
+	SELECT category 
+	FROM products GROUP BY category
+
+9. Selektuj poslednjih 5 unetih proizvoda
+	SELECT * FROM `products` 
+	ORDER BY id LIMIT 5
+
+
+10. Selektuj koja kategorija koliko proizvoda ima.
+	SELECT category AS 'Category' , COUNT(id) AS 'Ukupno proizvoda' 
+	FROM products 
+	GROUP BY category
+
+
+
+11. Selektuj koja kategorija koliko proizvoda ima i sortiraj opadajuće 
+po broju.
+	SELECT category AS 'Category' , COUNT(id) AS 'Ukupno proizvoda' 
+	FROM products GROUP BY category
+
+12. Selektuj koja kategorija ima najviše proizvoda (LIMIT).
+	SELECT category AS 'Kategorija', COUNT(id) AS 'Ukupno' 
+	FROM products 
+	GROUP BY category 
+	ORDER BY 'Ukupno' DESC 
+	LIMIT 1
+
+
+13. Selektuj samo drugu kategoriju koja ima najviše proizvoda OFFSET.
+
+	SELECT category AS 'Kategorija', COUNT(id) AS 'Ukupno' 
+	FROM products 
+	GROUP BY category 
+	ORDER BY 'Ukupno' DESC 
+	LIMIT 1 OFFSET 1
+
+
+14. Selektuj sve kategorije osim one koja ima najviše proizvoda.
+	SELECT DISTINCT category 
+	FROM products WHERE category NOT LIKE (
+		SELECT category 
+    		FROM products 
+    		GROUP BY category
+    		ORDER BY COUNT(id) DESC
+    		LIMIT 1   
+)
+
+
+15. Selektuj sve proizvode iz kategorije koja ima najviše proizvoda.
+
+SELECT * 
+FROM `products` 
+WHERE category LIKE (
+	SELECT category
+    FROM products
+    GROUP BY category
+    ORDER BY COUNT(id) DESC
+    LIMIT 1
+)
+
+
+16. Konkatenacija (CONCAT).
+
+
+SELECT CONCAT('Naziv:', title , ',opis', description) FROM products

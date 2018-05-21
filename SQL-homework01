@@ -1,0 +1,54 @@
+1.Selektuj sve proizvode koji ili u naslovu ili u opisu imaju reè "sok".
+-SELECT * FROM product WHERE title LIKE "sok%" OR description LIKE 
+"sok%" ;
+
+2.Selektuj sve proizvode koji su na popustu, a nisu iz kategorije 
+"pice".
+-SELECT* FROM product WHERE discount>"0" AND category NOT LIKE "Pice%" ;
+
+3.Selektuj sve proizvode èiji naslov poèinje slovom 'V' i ima taèno 4 
+karaktera u naslovu.
+-SELECT title, CHAR_LENGTH(title) AS 'character length' FROM product 
+WHERE CHAR_LENGTH(title)=4 AND title LIKE "V%"
+
+4. Prikaži sve proizvode prema prioritetu rastuæe.
+-SELECT* FROM product ORDER BY priority ASC
+
+5.Prikaži koja tri proizvoda imaju najveæi popust (prouèiti LIMIT).
+- SELECT * FROM product ORDER BY discount DESC LIMIT 3
+
+6.Prikaži koji proizvod je na drugom mestu po popustu (prouèiti OFFSET).
+-SELECT title, discount FROM product ORDER BY discount DESC LIMIT 1 
+OFFSET 1
+
+
+7.Selektuj sve sticker-e bez ponavljanja.    
+- SELECT DISTINCT sticker FROM product 
+
+8.Prikaži koliko ima proizvoda u svakoj kategoriji.
+- SELECT * FROM product WHERE category LIKE"Hrana%" ORDER BY discount 
+DESC
+
+9.Prikaži koliko ima proizvoda u svakoj kategoriji.
+- SELECT COUNT(title), category FROM product GROUP BY category ORDER BY 
+COUNT(title) DESC
+
+10. Napisati još 3 zahteva po želji i rešiti ih:
+
+
+1) Odrediti maksimalnu , minimalnu , prosecnu i ukupnu cenu proizvoda .
+-Select MAX(price) AS MaxCena, MIN(price) AS MinCena, AVG(price) AS 
+ProsecnaCena, SUM(price) AS UkupnaCena FROM product
+
+2) Selektuj sve proizvode cija je cena veca od 200, koji imaju snizenje 
+i sotriraj ih prema snizenju opadajuce.
+- SELECT * FROM product WHERE price>"200" AND discount>"0" ORDER BY 
+discount DESC
+ 
+
+3) Prikazi sve proizvode cija kategorija je hrana i nemaju sticker .
+- SELECT * FROM product WHERE category='hrana' AND sticker IS NOT NULL
+
+ 
+
+
